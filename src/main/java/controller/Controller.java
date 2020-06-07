@@ -20,7 +20,7 @@ public class Controller {
 	UserService userService;
 
 	/* ---------------- GET ALL User ------------------------ */
-	@RequestMapping(value = "/users", method = RequestMethod.GET)
+	@RequestMapping(value = { "/users", "/" }, method = RequestMethod.GET)
 	public ResponseEntity<List<User>> getAllUsers() {
 		List<User> listUsers = new ArrayList<User>();
 		listUsers = userService.getAllUsers();
@@ -47,7 +47,7 @@ public class Controller {
 		return new ResponseEntity<String>("Created!", HttpStatus.CREATED);
 	}
 
-//	/* ---------------- DELETE User ------------------------ */
+	/* ---------------- DELETE User ------------------------ */
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteUserById(@PathVariable int id) {
 		User User = userService.getUserById(id);
@@ -58,7 +58,7 @@ public class Controller {
 		return new ResponseEntity<String>("Deleted!", HttpStatus.OK);
 	}
 
-//	/* ---------------- UPDATE User ------------------------ */
+	/* ---------------- UPDATE User ------------------------ */
 	@RequestMapping(value = "/user", method = RequestMethod.PUT)
 	public ResponseEntity<String> updateUser(@RequestBody User user) {
 		User oldUser = userService.getUserById(user.getId());
@@ -67,5 +67,16 @@ public class Controller {
 		}
 		userService.updateUser(user);
 		return new ResponseEntity<String>("Updated!", HttpStatus.OK);
+	}
+
+	/* ---------------- PAGINATION User ----------------------- */
+	@RequestMapping(value = { "/pages/{page}", }, method = RequestMethod.GET)
+	public ResponseEntity<List<User>> paginationUsers(@PathVariable int page) {
+		if (page <= 0) {
+			page = 1;
+		}
+		List<User> listUsers = new ArrayList<User>();
+		listUsers = userService.paginationUsers(page);
+		return new ResponseEntity<List<User>>(listUsers, HttpStatus.OK);
 	}
 }

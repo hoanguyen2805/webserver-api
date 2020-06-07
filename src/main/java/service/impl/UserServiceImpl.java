@@ -37,7 +37,12 @@ public class UserServiceImpl implements UserService {
 	public List<User> getAllUsers() {
 		return UserDao.getAllUsers();
 	}
+
 	public User getUserByName(String name) {
 		return UserDao.getUserByName(name);
+	}
+
+	public List<User> paginationUsers(int page) {
+		return UserDao.paginationUsers(page);
 	}
 }

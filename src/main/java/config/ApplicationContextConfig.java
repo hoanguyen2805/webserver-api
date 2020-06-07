@@ -1,4 +1,5 @@
 package config;
+
 import java.util.Properties;
 import javax.sql.DataSource;
 import org.hibernate.SessionFactory;
@@ -11,11 +12,12 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
 @Configuration
 @EnableWebMvc
-@ComponentScan("controller, dao, service") 
+@ComponentScan("controller, dao, service")
 @EnableTransactionManagement
-public class ApplicationContextConfig{ 
+public class ApplicationContextConfig {
 
 	@Bean
 	public DataSource dataSource() {
@@ -39,14 +41,12 @@ public class ApplicationContextConfig{
 		return bean;
 	}
 
-	@Bean(name="transactionManager")
+	@Bean(name = "transactionManager")
 	@Autowired
 	public HibernateTransactionManager hibernateTransactionManager(SessionFactory sessionFactory) {
 		HibernateTransactionManager hibernateTransactionManager = new HibernateTransactionManager();
 		hibernateTransactionManager.setSessionFactory(sessionFactory);
 		return hibernateTransactionManager;
 	}
-
-
 
 }

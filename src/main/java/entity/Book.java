@@ -3,18 +3,13 @@ package entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
-/**
- * The persistent class for the Book database table.
- * 
- */
-@Entity(name="Book")
+@Entity(name = "Book")
 //@NamedQuery(name="Book.findAll", query="SELECT b FROM Book b")
 public class Book implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private String name;

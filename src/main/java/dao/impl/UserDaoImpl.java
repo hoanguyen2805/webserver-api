@@ -70,6 +70,7 @@ public class UserDaoImpl implements UserDao {
 		User user = (User) session.get(User.class, id);
 		return user;
 	}
+
 	public User getUserByName(String name) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "FROM User WHERE username = :username";
@@ -77,10 +78,22 @@ public class UserDaoImpl implements UserDao {
 		query.setParameter("username", name);
 		@SuppressWarnings("unchecked")
 		List<User> user = query.list();
-		if(user.isEmpty()) {
+		if (user.isEmpty()) {
 			return null;
 		}
 		return user.get(0);
+	}
+
+	public List<User> paginationUsers(int page) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM User";
+		Query query = session.createQuery(hql);
+		/* Vị trí bắt đầu truy vấn, số 2 là số bản ghi tối đa */
+		query.setFirstResult(2*(page-1));
+		/* Số bản ghi tối đa truy vấn được */
+		query.setMaxResults(2);
+		List<User> list = query.list();
+		return list;
 	}
 
 	@SuppressWarnings("unchecked")
